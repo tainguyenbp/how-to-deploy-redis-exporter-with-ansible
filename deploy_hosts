@@ -1,0 +1,3 @@
+[deploy-redis-exporter-centos]
+nginx-server  ansible_connection=ssh ansible_ssh_user=root ansible_host=192.168.115.109 ansible_port=22 ansible_ssh_pass=123456
+voip-server ansible_connection=ssh ansible_ssh_user=root ansible_host=192.168.115.115 ansible_port=22 ansible_ssh_pass=123456

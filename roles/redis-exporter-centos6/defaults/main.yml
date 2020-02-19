@@ -1,0 +1,6 @@
+path_redis_exporter_src_dir: /etc/redis_exporter/redis_exporter-v1.3.5.linux-amd64/
+path_file_redis_exporter_src_dir: /etc/redis_exporter/redis_exporter-v1.3.5.linux-amd64/redis_exporter
+name_redis_exporter_src: redis_exporter-v1.3.5.linux-amd64.tar.gz
+path_redis_exporter_system: /etc/redis_exporter/
+path_file_redis_exporter_system: /etc/redis_exporter/redis_exporter
+path_init_serivce: /etc/init.d/redis_exporter

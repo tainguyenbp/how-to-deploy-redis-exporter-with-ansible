@@ -1,0 +1,70 @@
+- name: install the latest version of daemonize
+  yum:
+    name: daemonize
+    state: latest
+
+- name: Create the user redis_exporter
+  user:
+    name: redis_exporter
+    createhome: no
+    shell: /bin/false
+    state: present
+
+- name: Creates directory redis_exporter
+  file:
+    path: /etc/redis_exporter
+    state: directory
+    owner: redis_exporter
+    group: redis_exporter
+
+- name: Creates directory subsys
+  file:
+    path: /etc/redis_exporter/subsys
+    state: directory
+    owner: redis_exporter
+    group: redis_exporter
+
+- name: Extract file setup redis_exporter
+  unarchive: 
+    src: '{{ name_redis_exporter_src }}'
+    dest: '{{ path_redis_exporter_system }}'
+
+- name: copy file source code redis_exporter
+  copy:
+    src: '{{ path_file_redis_exporter_src_dir }}'
+    dest: '{{ path_file_redis_exporter_system }}'
+    remote_src: yes
+
+- name: Copy file init service redis_exporter
+  template:
+    src: redis_exporter.init
+    dest: '{{ path_init_serivce }}'
+
+- name: add execute permission for redis_exporter.init
+  file:
+    dest: '{{ path_init_serivce }}'
+    mode: a+x
+
+- name: Changing provide the ownership of redis_exporter
+  file:
+    dest: '{{ path_redis_exporter_system }}'
+    state: directory
+    owner: redis_exporter
+    group: redis_exporter
+    recurse: yes
+
+- name: add execute permission for redis_exporter
+  file:
+    dest: '{{ path_file_redis_exporter_system }}'
+    mode: a+x
+    
+- name: Start service redis_exporter, if not started
+  service:
+    name: redis_exporter
+    state: started
+    enabled: yes
+
+- name: Restart service redis_exporter, in all cases
+  service:
+    name: redis_exporter
+    state: restarted
